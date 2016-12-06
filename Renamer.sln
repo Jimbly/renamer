@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Renamer", "Renamer.vcxproj", "{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}"
+	ProjectSection(ProjectDependencies) = postProject
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD} = {74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libUtil", "..\..\SRCSVN\libUtil\libUtil.vcxproj", "{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Full Debug|Win32 = Full Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Debug|Win32.Build.0 = Debug|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|Win32.ActiveCfg = Debug|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|Win32.Build.0 = Debug|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Release|Win32.ActiveCfg = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Release|Win32.Build.0 = Release|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|Win32.Build.0 = Debug|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|Win32.ActiveCfg = Full Debug|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|Win32.Build.0 = Full Debug|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|Win32.ActiveCfg = Release|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
