@@ -43,7 +43,7 @@ int main(int argc, char **argv)
 	GetCurrentDirectory(ARRAY_SIZE(dir), dir);
 	if (argc >= 2) {
 		strcpy(dir, argv[1]);
-		for (int ii = 3; ii < argc; ii++)
+		for (int ii = 2; ii < argc; ii++)
 		{
 			strcat(dir, " ");
 			strcat(dir, argv[ii]);
