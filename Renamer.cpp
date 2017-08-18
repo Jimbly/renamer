@@ -42,11 +42,11 @@ int main(int argc, char **argv)
 	char dir[MAX_PATH];
 	GetCurrentDirectory(ARRAY_SIZE(dir), dir);
 	if (argc >= 2) {
-		strcpy(dir, argv[1]);
+		strcpy_s(dir, argv[1]);
 		for (int ii = 2; ii < argc; ii++)
 		{
-			strcat(dir, " ");
-			strcat(dir, argv[ii]);
+			strcat_s(dir, " ");
+			strcat_s(dir, argv[ii]);
 		}
 	}
 
@@ -65,7 +65,8 @@ int main(int argc, char **argv)
 	fileTempName(temp_file, ARRAY_SIZE(temp_file));
 	strcat_s(temp_file, ".renamer");
 
-	FILE *f = fopen(temp_file, "w");
+	FILE *f = NULL;
+	fopen_s(&f, temp_file, "w");
 	for (int ii = 0; ii < arraySize(&files); ii++)
 	{
 		fprintf_s(f, "%s\n", files[ii]);
@@ -158,7 +159,7 @@ retry:
 		}
 	}
 
-	unlink(temp_file);
+	_unlink(temp_file);
 	printf("Press any key to exit...\n");
 	pak();
 	return 0;
