@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <conio.h>
 #include <direct.h>
+#include "utilFile.h"
+#include "utilElevate.h"
+#include "utilRegistry.h"
 #include "utilStdInclude.h"
 #include "utilString.h"
-#include "utilFile.h"
+#include "utilSystem.h"
 
 char **files;
 void mapFunc(const char* fname, bool isHidden, bool isDir, void* userData)
@@ -37,17 +40,32 @@ void pak() {
 		_getch();
 }
 
+int autoRegister()
+{
+	char value[MAX_PATH];
+	sprintf_s(value, "%s %%1", getExecutableFullPath());
+	backSlashes(value);
+	RegSetResult rsr = regSetString("HKEY_CLASSES_ROOT\\Directory\\shell\\Renamer\\command\\", value);
+	if (rsr == RSR_FAILED && !isElevated() && canElevate()) {
+		elevate("");
+		return 1;
+	}
+	msgBox("Renamer", (rsr == RSR_SET) ? "Registered shell hooks" : (rsr == RSR_ALREADY_SET) ? "Shell hooks already registered" : "Failed to register shell hooks", MB_OK);
+	return 0;
+}
+
+
 int main(int argc, char **argv)
 {
+	if (argc < 2) {
+		return autoRegister();
+	}
 	char dir[MAX_PATH];
-	GetCurrentDirectory(ARRAY_SIZE(dir), dir);
-	if (argc >= 2) {
-		strcpy_s(dir, argv[1]);
-		for (int ii = 2; ii < argc; ii++)
-		{
-			strcat_s(dir, " ");
-			strcat_s(dir, argv[ii]);
-		}
+	strcpy_s(dir, argv[1]);
+	for (int ii = 2; ii < argc; ii++)
+	{
+		strcat_s(dir, " ");
+		strcat_s(dir, argv[ii]);
 	}
 
 	mapDirFiles(dir, mapFunc, NULL);
