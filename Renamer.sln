@@ -1,36 +1,80 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Renamer", "Renamer.vcxproj", "{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}"
 	ProjectSection(ProjectDependencies) = postProject
 		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD} = {74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libUtil", "..\..\SRCSVN\libUtil\libUtil.vcxproj", "{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libUtil", "..\..\SRCSVN\GLOV\libUtil\libUtil.vcxproj", "{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ORBIS = Debug|ORBIS
 		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Full Debug|ORBIS = Full Debug|ORBIS
 		Full Debug|Win32 = Full Debug|Win32
+		Full Debug|x64 = Full Debug|x64
+		Linux|ORBIS = Linux|ORBIS
+		Linux|Win32 = Linux|Win32
+		Linux|x64 = Linux|x64
+		Release|ORBIS = Release|ORBIS
 		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Debug|ORBIS.ActiveCfg = Debug|Win32
 		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Debug|Win32.ActiveCfg = Debug|Win32
 		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Debug|Win32.Build.0 = Debug|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Debug|x64.ActiveCfg = Debug|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|ORBIS.ActiveCfg = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|ORBIS.Build.0 = Release|Win32
 		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|Win32.ActiveCfg = Debug|Win32
 		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|Win32.Build.0 = Debug|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|x64.ActiveCfg = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Full Debug|x64.Build.0 = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Linux|ORBIS.ActiveCfg = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Linux|ORBIS.Build.0 = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Linux|Win32.ActiveCfg = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Linux|Win32.Build.0 = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Linux|x64.ActiveCfg = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Linux|x64.Build.0 = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Release|ORBIS.ActiveCfg = Release|Win32
 		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Release|Win32.ActiveCfg = Release|Win32
 		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Release|Win32.Build.0 = Release|Win32
+		{0F5DC478-C7DD-4EBC-9EA1-8F6005363165}.Release|x64.ActiveCfg = Release|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|ORBIS.ActiveCfg = Debug|ORBIS
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|ORBIS.Build.0 = Debug|ORBIS
 		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|Win32.Build.0 = Debug|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|x64.ActiveCfg = Debug|x64
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Debug|x64.Build.0 = Debug|x64
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|ORBIS.ActiveCfg = Full Debug|ORBIS
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|ORBIS.Build.0 = Full Debug|ORBIS
 		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|Win32.ActiveCfg = Full Debug|Win32
 		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|Win32.Build.0 = Full Debug|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|x64.ActiveCfg = Full Debug|x64
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Full Debug|x64.Build.0 = Full Debug|x64
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Linux|ORBIS.ActiveCfg = Linux|ORBIS
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Linux|ORBIS.Build.0 = Linux|ORBIS
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Linux|Win32.ActiveCfg = Linux|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Linux|Win32.Build.0 = Linux|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Linux|x64.ActiveCfg = Linux|x64
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Linux|x64.Build.0 = Linux|x64
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|ORBIS.ActiveCfg = Release|ORBIS
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|ORBIS.Build.0 = Release|ORBIS
 		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|Win32.ActiveCfg = Release|Win32
 		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|Win32.Build.0 = Release|Win32
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|x64.ActiveCfg = Release|x64
+		{74A0C3CA-8C74-4335-BFB0-DF8DB8B1F9AD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A08CC95-3DA6-46BF-9259-0F16FD85BF09}
 	EndGlobalSection
 EndGlobal
