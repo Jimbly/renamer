@@ -91,16 +91,30 @@ int main(int argc, char **argv)
 	}
 	fclose(f);
 
+	char *orig_data = fload(temp_file, "r", NULL);
+
 retry:
-	printf("Opening %s with associated editor...\n", temp_file);
 
-	fileOpenWithEditor(temp_file);
-
-	printf("Press any key when ready to apply changes...\n");
-
-	pak();
+	char cmd1[MAX_PATH];
+	sprintf_s(cmd1, "SublimeTextWait \"%s\"", temp_file);
+	int ret = system(cmd1);
+	if (ret != 0) {
+		printf("SublimeTextWait not found, trying associated editor instead...\n");
+		printf("Opening %s with associated editor...\n", temp_file);
+		fileOpenWithEditor(temp_file);
+	}
 
 	char *data = fload(temp_file, "r", NULL);
+	if (strcmp(data, orig_data) != 0) {
+		// user made a change, must be a synchronous editor
+	} else {
+		printf("Press any key when ready to apply changes...\n");
+
+		pak();
+
+		data = fload(temp_file, "r", NULL);
+	}
+
 	char *cur = data;
 	char *context = NULL;
 	char *next;
