@@ -70,7 +70,7 @@ int autoRegister()
 
 	if (needs_class || needs_association || needs_command) {
 		if (!isElevated()) {
-			if (msgBox("Renamer",
+			if (msgBox("Renamer - Dashing Strike",
 				"Renamer needs to add a shell hook to be in the right click menu, and file association for .renamer files.\n\nYou will be asked to select your favorite text editor for editing .renamer files.\n\nPress OK to continue with adminstrator access to continue.",
 				MB_OKCANCEL) == IDCANCEL) {
 				return 1;
@@ -112,14 +112,14 @@ int autoRegister()
 			}
 			RegSetResult rsr2 = regSetString(assoc_path, association);
 			printf(rsr2 == RSR_SET ? "Registering association command succeeded\n" : "Registering association command FAILED\n");
-			msgBox("Renamer", rsr2 == RSR_SET ? "Editor association for .renamer files registered" : "Failed to register editor association for .renamer files", MB_OK);
+			msgBox("Renamer - Dashing Strike", rsr2 == RSR_SET ? "Editor association for .renamer files registered" : "Failed to register editor association for .renamer files", MB_OK);
 		}
 	} else if (needs_class) {
 		RegSetResult rsr2 = regSetString(CLASS_PATH, class_name);
 		printf(rsr2 == RSR_SET ? "Registering class succeeded\n" : "Registering class FAILED\n");
 	}
 
-	msgBox("Renamer", (rsr == RSR_SET) ? "Registered shell hooks.  Right click on any folder and choose Rename to get started!" :
+	msgBox("Renamer - Dashing Strike", (rsr == RSR_SET) ? "Registered shell hooks.  Right click on any folder and choose Rename to get started!" :
 		(rsr == RSR_ALREADY_SET) ? "Shell hooks already registered.  Right click on any folder and choose Rename to get started!" :
 		"Failed to register shell hooks", MB_OK);
 	return 0;
@@ -128,6 +128,7 @@ int autoRegister()
 
 int main(int argc, char **argv)
 {
+	printf("Renamer - Dashing Strike - http://www.dashingstrike.com/Renamer/ for more info\n");
 	if (argc < 2) {
 		return autoRegister();
 	}
