@@ -1,3 +1,7 @@
+#undef WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x501
+#include <Windows.h>
+
 #include <stdio.h>
 #include <conio.h>
 #include <direct.h>
@@ -7,6 +11,10 @@
 #include "utilStdInclude.h"
 #include "utilString.h"
 #include "utilSystem.h"
+#include <ShellAPI.h>
+#include <KnownFolders.h>
+#include <ShlObj.h>
+
 
 char **files;
 void mapFunc(const char* fname, bool isHidden, bool isDir, void* userData)
@@ -40,17 +48,80 @@ void pak() {
 		_getch();
 }
 
+#define CLASS_PATH "HKEY_CLASSES_ROOT\\.renamer\\"
+
 int autoRegister()
 {
-	char value[MAX_PATH];
-	sprintf_s(value, "%s %%1", getExecutableFullPath());
-	backSlashes(value);
-	RegSetResult rsr = regSetString("HKEY_CLASSES_ROOT\\Directory\\shell\\Renamer\\command\\", value);
-	if (rsr == RSR_FAILED && !isElevated() && canElevate()) {
-		elevate("");
-		return 1;
+	char command[MAX_PATH];
+	sprintf_s(command, "%s %%1", getExecutableFullPath());
+	backSlashes(command);
+	RegSetResult rsr = regSetString("HKEY_CLASSES_ROOT\\Directory\\shell\\Renamer\\command\\", command);
+	bool needs_command = rsr == RSR_FAILED;
+
+	const char *class_name = regGetString(CLASS_PATH);
+	bool needs_class = !class_name;
+	if (needs_class) {
+		class_name = "renamer_auto_file";
 	}
-	msgBox("Renamer", (rsr == RSR_SET) ? "Registered shell hooks" : (rsr == RSR_ALREADY_SET) ? "Shell hooks already registered" : "Failed to register shell hooks", MB_OK);
+	char assoc_path[MAX_PATH];
+	sprintf_s(assoc_path, "HKEY_CLASSES_ROOT\\%s\\shell\\open\\command\\", class_name);
+	const char *association = regGetString(assoc_path);
+	bool needs_association = !association;
+
+	if (needs_class || needs_association || needs_command) {
+		if (!isElevated()) {
+			if (msgBox("Renamer",
+				"Renamer needs to add a shell hook to be in the right click menu, and file association for .renamer files.\n\nYou will be asked to select your favorite text editor for editing .renamer files.\n\nPress OK to continue with adminstrator access to continue.",
+				MB_OKCANCEL) == IDCANCEL) {
+				return 1;
+			}
+		}
+		if (!isElevated() && canElevate()) {
+			elevate("");
+			return 1;
+		}
+	}
+
+	if (needs_association) {
+		OPENFILENAME ofn = { 0 };
+		ofn.lStructSize = sizeof(ofn);
+		ofn.lpstrFilter = "Programs\0*.EXE;*.CMD;*.BAT;\0\0";
+		char file_buf[MAX_PATH] = "";
+		ofn.lpstrFile = file_buf;
+		ofn.nMaxFile = ARRAY_SIZE(file_buf);
+		ofn.lpstrTitle = "Choose a text editor (VS Code, Sublime Text, etc)";
+
+		char assoc_buf[MAX_PATH];
+		if (GetOpenFileName(&ofn)) {
+			if (strEndsWith(file_buf, "sublime_text.exe")) {
+				int len = strlen(file_buf) - strlen("sublime_text.exe");
+				strcpy_s(file_buf + len, ARRAYSIZE(file_buf) - len, "subl.exe");
+			}
+			if (strEndsWith(file_buf, "subl.exe")) {
+				// if Sublime Text, replace with "subl.exe" -w 
+				sprintf_s(assoc_buf, "\"%s\" -w \"%%1\"", file_buf);
+			} else {
+				sprintf_s(assoc_buf, "\"%s\" \"%%1\"", file_buf);
+			}
+			association = assoc_buf;
+		}
+		if (association) {
+			if (needs_class) {
+				RegSetResult rsr2 =  regSetString(CLASS_PATH, class_name);
+				printf(rsr2 == RSR_SET ? "Registering class succeeded\n" : "Registering class FAILED\n");
+			}
+			RegSetResult rsr2 = regSetString(assoc_path, association);
+			printf(rsr2 == RSR_SET ? "Registering association command succeeded\n" : "Registering association command FAILED\n");
+			msgBox("Renamer", rsr2 == RSR_SET ? "Editor association for .renamer files registered" : "Failed to register editor association for .renamer files", MB_OK);
+		}
+	} else if (needs_class) {
+		RegSetResult rsr2 = regSetString(CLASS_PATH, class_name);
+		printf(rsr2 == RSR_SET ? "Registering class succeeded\n" : "Registering class FAILED\n");
+	}
+
+	msgBox("Renamer", (rsr == RSR_SET) ? "Registered shell hooks.  Right click on any folder and choose Rename to get started!" :
+		(rsr == RSR_ALREADY_SET) ? "Shell hooks already registered.  Right click on any folder and choose Rename to get started!" :
+		"Failed to register shell hooks", MB_OK);
 	return 0;
 }
 
@@ -94,15 +165,9 @@ int main(int argc, char **argv)
 	char *orig_data = fload(temp_file, "r", NULL);
 
 retry:
+	printf("Opening %s with associated editor...\n", temp_file);
 
-	char cmd1[MAX_PATH];
-	sprintf_s(cmd1, "SublimeTextWait \"%s\"", temp_file);
-	int ret = system(cmd1);
-	if (ret != 0) {
-		printf("SublimeTextWait not found, trying associated editor instead...\n");
-		printf("Opening %s with associated editor...\n", temp_file);
-		fileOpenWithEditor(temp_file);
-	}
+	fileOpenWithEditor(temp_file, true);
 
 	char *data = fload(temp_file, "r", NULL);
 	if (strcmp(data, orig_data) != 0) {
